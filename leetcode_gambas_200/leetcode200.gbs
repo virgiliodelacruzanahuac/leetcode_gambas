@@ -1,0 +1,117 @@
+#!/usr/bin/env gbs3
+
+'Gambas Scripting solution https://leetcode.com/problems/number-of-islands/
+'Gambas Scriting Documentation http://gambaswiki.org/wiki/doc/scripting
+'Author: Virgilio De la Cruz Jardón
+'Date : Feb 2022
+' Gambas module file
+
+Public Sub printArray(grid As String[], numOfRows As Integer, numofColumns As Integer)
+  Dim r, c As Integer
+  For r = 0 To numOfRows - 1
+    For c = 0 To numofColumns - 1
+        Print grid[r, c];
+    Next
+    Print ""
+  Next 
+  
+  
+  
+End
+
+
+Public Function fillWithZeros(grid As String[], numOfRows As Integer, numofColumns As Integer) As String[]
+  Dim r, c As Integer
+  For r = 0 To numOfRows - 1
+    For c = 0 To numofColumns - 1
+        grid[r, c] = "0"
+    Next
+  Next 
+  Return grid
+  
+End
+Public Sub dfs(grid As String[], numOfRows As Integer, numofColumns As Integer, i As Integer, j As Integer) 
+   
+  If (i >= 0 And i < numOfRows) And (j >= 0 And j < numofColumns) Then
+    If grid[i, j] <> "1"
+      Return
+    Endif
+  End If
+  If (i < 0) Or (i >= numOfRows) Or (j < 0) Or (j >= numofColumns) Then
+    Return  
+  Endif
+    grid[i, j] = "X"
+    dfs(grid, numOfRows, numofColumns, i - 1, j)
+    dfs(grid, numOfRows, numofColumns, i + 1, j)
+    dfs(grid, numOfRows, numofColumns, i, j - 1)
+    dfs(grid, numOfRows, numofColumns, i, j + 1)
+ 
+  
+End
+
+Public Function numIslands(grid As String[], numOfRows As Integer, numofColumns As Integer) As Integer
+  Dim mycount, i, j As Integer
+  mycount = 0
+ If (grid.Count = 0) Or (numOfRows = 0) Or (numofColumns = 0) Then
+   Return 0
+ Endif
+  For i = 0 To numOfRows - 1
+    For j = 0 To numofColumns - 1
+      If grid[i, j] = "1" Then
+        Inc mycount
+        dfs(grid, numOfRows, numofColumns, i, j)
+      Endif
+    Next
+   Next
+  Return mycount
+End
+
+
+
+Public Sub Main()
+Dim test As New String[4, 5]
+
+test = fillWithZeros(test, 4, 5)
+'Example 1
+'11110
+'11010
+'11000
+'00000
+'1 row
+test[0, 0] = "1"
+test[0, 1] = "1"
+test[0, 2] = "1"
+test[0, 3] = "1"
+'2 row
+test[1, 0] = "1"
+test[1, 1] = "1"
+test[1, 3] = "1"
+'3 row
+test[2, 0] = "1"
+test[2, 1] = "1"
+'4 row , all zeros
+Print "Example 1"
+printArray(test, 4, 5)
+Print "number of islands = ";numIslands(test, 4, 5)
+
+'Example 2
+'11000
+'11000
+'00100
+'00011
+test = fillWithZeros(test, 4, 5)
+'1 row
+test[0, 0] = "1"
+test[0, 1] = "1"
+'2 row
+test[1, 0] = "1"
+test[1, 1] = "1"
+'3 row
+test[2, 2] = "1"
+'4 row 
+test[3, 3] = "1"
+test[3, 4] = "1"
+Print "Example 2"
+printArray(test, 4, 5)
+Print "number of islands = ";numIslands(test, 4, 5)
+End
