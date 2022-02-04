@@ -1,7 +1,7 @@
 #!/usr/bin/env gbs3
 
 'Gambas Scripting solution https://leetcode.com/problems/number-of-islands/
-'Gambas Scriting Documentation http://gambaswiki.org/wiki/doc/scripting
+'Gambas Scripting Documentation http://gambaswiki.org/wiki/doc/scripting
 'Author: Virgilio De la Cruz Jardón
 'Date : Feb 2022
 ' Gambas module file
